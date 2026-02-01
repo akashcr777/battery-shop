@@ -1,7 +1,10 @@
-{
-  "name": "pilot-battery-shop-frontend",
-  "version": "1.0.0",
-  "private": true,
+
+  {
+    "name": "pilot-battery-shop-frontend",
+    "version": "0.1.0",
+    "private": true,
+    "homepage": "https://akashcr777.github.io/pilot-battery-shop",
+  
   "dependencies": {
     "axios": "^1.6.2",
     "react": "^18.2.0",
@@ -9,8 +12,18 @@
     "react-router-dom": "6.8.0",
     "react-scripts": "5.0.1"
   },
-  "scripts": {
-    "start": "react-scripts start"
+
+"scripts": {
+  "start": "react-scripts start",
+  "build": "react-scripts build",
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
+},
+
+
+
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   },
   "browserslist": {
     "production": [
