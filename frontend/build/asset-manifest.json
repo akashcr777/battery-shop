@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/pilot-battery-shop/static/css/main.f39ede07.css",
+    "main.js": "/pilot-battery-shop/static/js/main.d2a61d3f.js",
+    "index.html": "/pilot-battery-shop/index.html",
+    "main.f39ede07.css.map": "/pilot-battery-shop/static/css/main.f39ede07.css.map",
+    "main.d2a61d3f.js.map": "/pilot-battery-shop/static/js/main.d2a61d3f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f39ede07.css",
+    "static/js/main.d2a61d3f.js"
+  ]
+}
