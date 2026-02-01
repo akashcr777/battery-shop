@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Pilot Battery Shop - Full Stack E-Commerce Application
 
 A complete e-commerce platform for battery and UPS sales with delivery tracking, built with React and MongoDB.
@@ -210,4 +211,8 @@ This project is open source and available for use.
 ## Support
 
 For issues or questions, please contact: 6374073238
+
+
+# pilot-battery-shop
+react  
 
