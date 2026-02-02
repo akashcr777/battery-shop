@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/battery-shop/static/css/main.9c0daffd.css",
+    "main.js": "/battery-shop/static/js/main.f1a1eef5.js",
+    "index.html": "/battery-shop/index.html",
+    "main.9c0daffd.css.map": "/battery-shop/static/css/main.9c0daffd.css.map",
+    "main.f1a1eef5.js.map": "/battery-shop/static/js/main.f1a1eef5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9c0daffd.css",
+    "static/js/main.f1a1eef5.js"
+  ]
+}
