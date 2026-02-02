@@ -172,6 +172,17 @@
   font-size: 0.95rem;
 }
 
+.location-hint {
+  color: #856404;
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
 .bill-section {
   margin: 1.5rem 0;
   padding: 1.5rem;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../utils/api";
+import { img } from "../utils/assets";
 import "./Products.css";
 
 const Products = () => {
@@ -33,46 +34,40 @@ const Products = () => {
     if (subCategory === "two-wheeler") {
       const fileName = imageMap[product.name];
       return fileName 
-        ? `/images/products/two-wheeler/${fileName}` 
-        : `/images/products/two-wheeler/exide-7-b.jpg`; // default fallback
+        ? img(`/images/products/two-wheeler/${fileName}`) 
+        : img("/images/products/two-wheeler/exide-7-b.jpg");
     }
 
-    // 3. Logic for Three-Wheeler (MAPPING YOUR FILENAMES)
     if (subCategory === "three-wheeler") {
-      // Map your specific DB names to your files t1, t2, t3
-      if (product.name.includes("EKO32")) return "/images/products/three-wheeler/t1.jpg";
-      if (product.name.includes("EKO40L")) return "/images/products/three-wheeler/t2.jpg";
-      if (product.name.includes("EKO50L")) return "/images/products/three-wheeler/t3.jpg";
-      
-      // Fallback if name doesn't match above
-      return "/images/products/three-wheeler/t1.jpg"; 
+      if (product.name.includes("EKO32")) return img("/images/products/three-wheeler/t1.jpg");
+      if (product.name.includes("EKO40L")) return img("/images/products/three-wheeler/t2.jpg");
+      if (product.name.includes("EKO50L")) return img("/images/products/three-wheeler/t3.jpg");
+      return img("/images/products/three-wheeler/t1.jpg");
     }
 
-    // 4. Logic for Four-wheeler, Truck, Home (use index-based fallback if no imageName)
     if (subCategory === "four-wheeler") {
       const file = product.imageName || `f${(index % 3) + 1}.jpg`;
-      return `/images/products/four-wheeler/${file}`;
+      return img(`/images/products/four-wheeler/${file}`);
     }
     if (subCategory === "truck") {
       const file = product.imageName || `a${(index % 3) + 1}.jpg`;
-      return `/images/products/truck/${file}`;
+      return img(`/images/products/truck/${file}`);
     }
     if (subCategory === "home") {
       const file = product.imageName || `h${(index % 3) + 1}.jpg`;
-      return `/images/products/home/${file}`;
+      return img(`/images/products/home/${file}`);
     }
     if (subCategory) {
       const fileName = product.imageName || 'default.jpg';
-      return `/images/products/${subCategory}/${fileName}`;
+      return img(`/images/products/${subCategory}/${fileName}`);
     }
 
-    // 5. UPS category (no subCategory) - use ups folder images by index
     if (category === "ups") {
       const file = `up${(index % 3) + 1}.jpg`;
-      return `/images/products/ups/${file}`;
+      return img(`/images/products/ups/${file}`);
     }
 
-    return "/images/products/two-wheeler/exide-7-b.jpg";
+    return img("/images/products/two-wheeler/exide-7-b.jpg");
   };
 
   const fetchProducts = async () => {
@@ -131,7 +126,7 @@ const Products = () => {
                     className="product-image"
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = "/images/products/ups/up1.jpg";
+                      e.target.src = img("/images/products/ups/up1.jpg");
                     }}
                   />
                 </div>
@@ -167,14 +162,14 @@ const Products = () => {
         <div className="subcategories-grid">
           <div className="subcategory-card" onClick={() => setSubCategory("vehicle")}>
             <div className="subcategory-card-image">
-              <img src="/images/products/four-wheeler/f1.jpg" alt="Vehicle Batteries" />
+              <img src={img("/images/products/four-wheeler/f1.jpg")} alt="Vehicle Batteries" />
             </div>
             <h3>Vehicle Batteries</h3>
             <p>2W • 3W • 4W • Truck</p>
           </div>
           <div className="subcategory-card" onClick={() => setSubCategory("home")}>
             <div className="subcategory-card-image">
-              <img src="/images/products/home/h1.jpg" alt="Home Batteries" />
+              <img src={img("/images/products/home/h1.jpg")} alt="Home Batteries" />
             </div>
             <h3>Home Batteries</h3>
             <p>Inverter & backup</p>
@@ -193,14 +188,14 @@ const Products = () => {
         </div>
         <div className="subcategories-grid">
           {[
-            { type: "two-wheeler", img: "/images/products/two-wheeler/exide-7-b.jpg", label: "Two Wheeler" },
-            { type: "three-wheeler", img: "/images/products/three-wheeler/t1.jpg", label: "Three Wheeler" },
-            { type: "four-wheeler", img: "/images/products/four-wheeler/f1.jpg", label: "Four Wheeler" },
-            { type: "truck", img: "/images/products/truck/a1.jpg", label: "Truck" },
+            { type: "two-wheeler", img: img("/images/products/two-wheeler/exide-7-b.jpg"), label: "Two Wheeler" },
+            { type: "three-wheeler", img: img("/images/products/three-wheeler/t1.jpg"), label: "Three Wheeler" },
+            { type: "four-wheeler", img: img("/images/products/four-wheeler/f1.jpg"), label: "Four Wheeler" },
+            { type: "truck", img: img("/images/products/truck/a1.jpg"), label: "Truck" },
           ].map(({ type, img, label }) => (
             <div key={type} className="subcategory-card" onClick={() => setSubCategory(type)}>
               <div className="subcategory-card-image">
-                <img src={img} alt={label} onError={(e) => { e.target.onerror = null; e.target.src = "/images/products/two-wheeler/exide-7-b.jpg"; }} />
+                <img src={img} alt={label} onError={(e) => { e.target.onerror = null; e.target.src = img("/images/products/two-wheeler/exide-7-b.jpg"); }} />
               </div>
               <h3>{label.toUpperCase()}</h3>
             </div>
@@ -235,7 +230,7 @@ const Products = () => {
                   className="product-image"
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = "/images/products/two-wheeler/exide-7-b.jpg";
+                    e.target.src = img("/images/products/two-wheeler/exide-7-b.jpg");
                   }}
                 />
               </div>

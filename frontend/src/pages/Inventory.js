@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { img } from "../utils/assets";
 import "./Inventory.css";
 
 const products = [
@@ -8,56 +9,56 @@ const products = [
     name: "EXIDE XPLORE",
     type: "battery",
     description: "Motorcycle VRLA Battery – Zero Maintenance",
-    image: "/images/products/two-wheeler/exide-7-b.jpg",
+    image: img("/images/products/two-wheeler/exide-7-b.jpg"),
   },
   {
     id: 2,
     name: "EXIDE INSTA BRITE",
     type: "battery",
     description: "Inverter Battery – Long Power Backup",
-    image: "/images/products/home/h1.jpg",
+    image: img("/images/products/home/h1.jpg"),
   },
   {
     id: 3,
     name: "EXIDE DRIVE",
     type: "battery",
     description: "Car Battery – Premium Performance",
-    image: "/images/products/four-wheeler/f1.jpg",
+    image: img("/images/products/four-wheeler/f1.jpg"),
   },
   {
     id: 4,
     name: "AMARON PRO",
     type: "battery",
     description: "Auto Rickshaw Battery – Heavy Duty",
-    image: "/images/products/three-wheeler/t1.jpg",
+    image: img("/images/products/three-wheeler/t1.jpg"),
   },
   {
     id: 5,
     name: "EXIDE POWERSAFE",
     type: "battery",
     description: "Truck Battery – Commercial Grade",
-    image: "/images/products/truck/a1.jpg",
+    image: img("/images/products/truck/a1.jpg"),
   },
   {
     id: 6,
     name: "APC Smart-UPS",
     type: "ups",
     description: "Online UPS – 1000VA",
-    image: "/images/products/ups/up1.jpg",
+    image: img("/images/products/ups/up1.jpg"),
   },
   {
     id: 7,
     name: "Luminous Cruze",
     type: "ups",
     description: "Line Interactive UPS – 2000VA",
-    image: "/images/products/ups/up2.jpg",
+    image: img("/images/products/ups/up2.jpg"),
   },
   {
     id: 8,
     name: "Microtek Legend",
     type: "ups",
     description: "Premium UPS – 3000VA",
-    image: "/images/products/ups/up3.jpg",
+    image: img("/images/products/ups/up3.jpg"),
   },
 ];
 
@@ -90,7 +91,7 @@ const Inventory = () => {
                 alt={item.name}
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "/images/products/home/h1.jpg";
+                  e.target.src = img("/images/products/home/h1.jpg");
                 }}
               />
               <div className="caption">
@@ -123,7 +124,7 @@ const Inventory = () => {
       <div className="categories">
         <div className="card" onClick={() => navigate("/products/battery")}>
           <div className="category-card-img">
-            <img src="/images/products/two-wheeler/exide-7-b.jpg" alt="Batteries" />
+            <img src={img("/images/products/two-wheeler/exide-7-b.jpg")} alt="Batteries" />
           </div>
           <h3>Batteries</h3>
           <p>Vehicle & Home</p>
@@ -131,7 +132,7 @@ const Inventory = () => {
 
         <div className="card" onClick={() => navigate("/products/ups")}>
           <div className="category-card-img">
-            <img src="/images/products/ups/up1.jpg" alt="UPS" />
+            <img src={img("/images/products/ups/up1.jpg")} alt="UPS" />
           </div>
           <h3>UPS</h3>
           <p>Power Backup</p>

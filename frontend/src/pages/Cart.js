@@ -21,23 +21,51 @@ const Cart = () => {
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
     setCart(savedCart);
-    getLocation();
+    // Don't auto-fetch location - let user click button instead
   }, []);
+
+  const isSecureContext = () => {
+    // Check if geolocation is available in secure context
+    // HTTPS, localhost, or 127.0.0.1 are allowed
+    const hostname = window.location.hostname;
+    const protocol = window.location.protocol;
+    
+    // HTTPS is always secure
+    if (protocol === "https:") return true;
+    
+    // localhost and 127.0.0.1 are allowed for HTTP
+    if (hostname === "localhost" || hostname === "127.0.0.1") return true;
+    
+    // Check browser's secure context flag
+    return window.isSecureContext === true;
+  };
 
   const getLocation = () => {
     if (!navigator.geolocation) {
       alert("Location is not supported by your browser. Please enter your address manually.");
       return;
     }
-    // Browsers allow geolocation only on HTTPS or http://localhost (not http://192.168.x.x)
-    const isSecureContext = window.isSecureContext || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-    if (!isSecureContext) {
-      alert(
-        "Location works only on https:// or http://localhost. You're using " + window.location.origin + ". Please enter your address in the fields below."
-      );
+
+    // Check if we're in a secure context
+    if (!isSecureContext()) {
+      const currentUrl = window.location.origin;
+      const message = 
+        "📍 Location access requires HTTPS or localhost.\n\n" +
+        "You're accessing via: " + currentUrl + "\n\n" +
+        "To use location tracking:\n" +
+        "• Use https:// (recommended for production)\n" +
+        "• Or access via http://localhost:3000 (for local testing)\n\n" +
+        "For now, please enter your address manually in the form below.";
+      alert(message);
       return;
     }
-    const options = { enableHighAccuracy: false, timeout: 15000, maximumAge: 60000 };
+
+    const options = { 
+      enableHighAccuracy: false, 
+      timeout: 15000, 
+      maximumAge: 60000 
+    };
+
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const coords = {
@@ -45,6 +73,7 @@ const Cart = () => {
           longitude: position.coords.longitude,
         };
         setLocation(coords);
+        
         try {
           const res = await fetch(
             `https://nominatim.openstreetmap.org/reverse?format=json&lat=${coords.latitude}&lon=${coords.longitude}&addressdetails=1`,
@@ -61,14 +90,19 @@ const Cart = () => {
           }));
         } catch (e) {
           console.error("Reverse geocode failed:", e);
+          // Location captured but address lookup failed - that's okay
         }
       },
       (error) => {
         console.error("Error getting location:", error);
         let msg = "Could not get your location. Please enter address manually.";
-        if (error.code === 1) msg = "Location permission denied. Please enter your address manually.";
-        else if (error.code === 2) msg = "Location unavailable. Please enter your address manually.";
-        else if (error.code === 3) msg = "Location request timed out. Please enter your address manually.";
+        if (error.code === 1) {
+          msg = "Location permission denied. Please allow location access or enter your address manually.";
+        } else if (error.code === 2) {
+          msg = "Location unavailable. Please enter your address manually.";
+        } else if (error.code === 3) {
+          msg = "Location request timed out. Please enter your address manually.";
+        }
         alert(msg);
       },
       options
@@ -243,11 +277,21 @@ const Cart = () => {
             />
           </div>
           <div className="location-actions">
-            <button type="button" className="use-location-btn" onClick={getLocation}>
+            <button 
+              type="button" 
+              className="use-location-btn" 
+              onClick={getLocation}
+              title={!isSecureContext() ? "Location requires HTTPS or localhost. Please enter address manually." : "Click to get your current location"}
+            >
               📍 Use my location
             </button>
             {location && (
-              <p className="location-status">📍 Location captured • Address filled from your location</p>
+              <p className="location-status">✅ Location captured • Address filled from your location</p>
+            )}
+            {!isSecureContext() && !location && (
+              <p className="location-hint">
+                💡 Tip: Location works on HTTPS or localhost. You can still place orders by entering your address manually.
+              </p>
             )}
           </div>
           
